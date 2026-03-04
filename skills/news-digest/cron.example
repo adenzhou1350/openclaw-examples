@@ -1,0 +1,10 @@
+# 新闻简报定时任务示例
+
+# 每天早上 8 点发送科技新闻到钉钉
+0 8 * * * cd /path/to/openclaw-examples/skills/news-digest && ./news-digest.sh --category tech --dingtalk >> /var/log/news-digest.log 2>&1
+
+# 每天晚上 8 点发送综合新闻到 Telegram
+0 20 * * * cd /path/to/openclaw-examples/skills/news-digest && ./news-digest.sh --category all --telegram >> /var/log/news-digest.log 2>&1
+
+# 工作日早上 9 点发送财经新闻
+0 9 * * 1-5 cd /path/to/openclaw-examples/skills/news-digest && ./news-digest.sh --category finance --dingtalk >> /var/log/news-digest.log 2>&1
