@@ -28,6 +28,7 @@
 - 系统监控
 - 自动化工作流
 - 桌面自动化
+- X/Twitter 搜索与自动化（TweetClaw）
 
 ## 🚀 快速开始
 
@@ -36,7 +37,10 @@
 git clone https://github.com/adenzhou1350/openclaw-examples.git
 
 # 查看示例
-ls examples/
+ls skills/
+
+# 查看实战案例
+cat USAGES.md
 ```
 
 ## 📄 License

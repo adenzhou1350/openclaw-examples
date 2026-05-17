@@ -114,6 +114,35 @@
 
 ---
 
+## 📌 案例 6：X/Twitter 公开反馈监控
+
+### 场景
+产品发布、开源项目推广或 Giveaway 活动后，用 OpenClaw Agent 跟踪 X/Twitter 上的公开反馈。
+
+### 实现功能
+- 🔎 搜索推文与推文回复
+- 👤 查询用户资料与公开互动线索
+- 👥 导出关注者列表用于人工筛选
+- 🖼️ 上传发布素材、下载账号相关媒体
+- 🔔 监控关键词并通过 Webhook 触发后续处理
+- 🎁 抽取 Giveaway 获奖者并保留结果
+- ✅ 人工批准后再发布推文或回复
+
+### 技术亮点
+- 使用 TweetClaw OpenClaw 插件
+- npm 安装：`openclaw plugins install @xquik/tweetclaw`
+- Xquik API Key 放在本地环境变量中，不写入仓库
+- 发布、回复、私信、关注、转发等可见动作先审核
+
+### 效果
+> 🤖 监控到 "OpenClaw plugin" 相关高意图问题后，
+> 自动记录推文链接、作者、时间、上下文和建议回复，等待人工确认后再发布。
+
+### 示例目录
+查看 [TweetClaw X/Twitter 自动化示例](skills/tweetclaw-x-twitter/README.md)。
+
+---
+
 ## 🚀 如何复用这些案例
 
 每个案例都是一个独立的 Skill，可以直接复制到你的 OpenClaw 项目中使用：
@@ -138,7 +167,7 @@ openclaw skills enable news-digest
 
 - [快速开始](README.md)
 - [Skill 开发指南](CONTRIBUTING.md)
-- [API 参考](docs/api.md)
+- [TweetClaw X/Twitter 示例](skills/tweetclaw-x-twitter/README.md)
 
 ---
 
