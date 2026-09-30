@@ -44,7 +44,7 @@ fetch_news() {
     local category=$1
     local date=$(date +%Y-%m-%d)
     
-    echo -e "${GREEN}📡 正在获取 ${category} 新闻...${NC}"
+    echo -e "${GREEN}📡 正在生成 ${category} 模拟简报...${NC}"
     
     # 模拟新闻数据 (实际使用可接入 NewsAPI)
     local news=()
@@ -83,7 +83,7 @@ generate_digest() {
     local date=$(date +"%Y年%m月%d日")
     
     echo "========================================"
-    echo -e "${BLUE}📰 每日新闻简报 - ${date}${NC}"
+    echo -e "${BLUE}📰 模拟新闻简报 - ${date}${NC}"
     echo "========================================"
     echo ""
     
@@ -99,7 +99,7 @@ generate_digest() {
     
     echo ""
     echo "========================================"
-    echo -e "${GREEN}📡 新闻来源: 各平台热点排行${NC}"
+    echo -e "${GREEN}📡 演示数据: 脚本内固定标题，非实时新闻${NC}"
     echo "========================================"
 }
 

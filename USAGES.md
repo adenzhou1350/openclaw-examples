@@ -1,145 +1,39 @@
-# 🎯 OpenClaw 实战案例
+# 使用示例
 
-> 真实应用场景展示，帮你快速理解 OpenClaw 的能力边界
+以下命令均从仓库根目录运行，使用 Linux / WSL 的 Bash。
 
----
-
-## 📌 案例 1：个人 AI 助理
-
-### 场景
-打造一个懂你、了解你习惯的个人 AI 助手
-
-### 实现功能
-- 📅 日程管理（Meeting Scheduler）
-- ⏰ 智能提醒（喝水、运动、服药）
-- 🌤️ 天气关怀（出门提醒带伞）
-- 📰 每日新闻简报（固定时间推送）
-
-### 技术亮点
-- 多渠道通知（微信/钉钉/Telegram）
-- 自然语言理解用户意图
-- 定时任务调度
-
-### 效果
-> 🤖 早上 7:30 自动发送：
-> "早安！今天北京晴 8-20°C，记得带伞哦～今天有 3 个会议，记得安排好时间！"
-
----
-
-## 📌 案例 2：自动化运维监控
-
-### 场景
-7×24 小时服务器健康监控与告警
-
-### 实现功能
-- 💻 服务器资源监控（CPU/内存/磁盘）
-- 🔔 异常告警（阈值触发钉钉/微信通知）
-- 📊 日/周/月报表生成
-- 🔒 安全扫描（登录异常检测）
-
-### 技术亮点
-- Shell 脚本 + cron 定时
-- Webhook 集成多平台
-- 增量备份 + 轮转策略
-
-### 效果
-> 🤖 凌晨 3:00 监控到磁盘使用率 > 85%
-> 立即发送告警到钉钉，运维人员第一时间处理
-
----
-
-## 📌 案例 3：内容创作助手
-
-### 场景
-自媒体博主的 AI 创作小助手
-
-### 实现功能
-- ⭐ 每日星座运势自动生成
-- 📰 热点新闻摘要
-- 📝 小红书/抖音文案生成
-- 🔔 内容发布提醒
-
-### 技术亮点
-- 第三方 API 集成（星座、新闻）
-- 模板化内容生成
-- 多平台发布支持
-
-### 效果
-> 🤖 每天早上自动生成今日运势
-> 博主直接复制粘贴到小红书，省时省力！
-
----
-
-## 📌 案例 4：家庭 IoT 控制中心
-
-### 场景
-用 AI 助手控制智能家居设备
-
-### 实现功能
-- 🏠 语音控制灯光/空调
-- 🚪 门锁状态监控
-- 📹 摄像头画面查看
-- 👶 宝宝监控提醒
-
-### 技术亮点
-- HomeAssistant API 对接
-- 语音识别 + TTS
-- 场景联动自动化
-
-### 效果
-> 🤖 "关闭客厅灯" → 自动执行
-> 出门忘锁门 → 自动检测并提醒
-
----
-
-## 📌 案例 5：数据备份系统
-
-### 场景
-重要数据的自动化备份方案
-
-### 实现功能
-- 💾 文件/目录增量备份
-- ☁️ 云端存储（S3/OSS/COS）
-- 📜 备份历史管理
-- 🗑️ 过期自动清理
-
-### 技术亮点
-- rsync 增量同步
-- tar+gzip 压缩
-- 定时轮转策略
-
-### 效果
-> 🤖 每天凌晨 2 点自动备份
-> 保留 7 份每日备份、4 份周备份、12 份月备份
-
----
-
-## 🚀 如何复用这些案例
-
-每个案例都是一个独立的 Skill，可以直接复制到你的 OpenClaw 项目中使用：
+## 资源检查
 
 ```bash
-# 克隆示例项目
-git clone https://github.com/your-username/openclaw-examples.git
-
-# 复制需要的 Skill
-cp -r skills/news-digest ~/openclaw/skills/
-cp -r skills/backup-tool ~/openclaw/skills/
-cp -r skills/meeting-scheduler ~/openclaw/skills/
-
-# 配置并使用
-cd ~/openclaw
-openclaw skills enable news-digest
+bash skills/system-health-check/health_check.sh
 ```
 
----
+终端报告包含 CPU、内存、磁盘、进程数和负载。阈值在脚本开头定义，也可通过同目录 `config.sh` 设置。当前 `--json` 中的 `status` 是固定字段，请用默认模式的退出码判断阈值状态。
 
-## 📚 相关文档
+## 备份一个测试目录
 
-- [快速开始](README.md)
-- [Skill 开发指南](CONTRIBUTING.md)
-- [API 参考](docs/api.md)
+先用临时目录验证复制和恢复，再改成自己的数据路径：
 
----
+```bash
+demo_dir=$(mktemp -d)
+mkdir -p "$demo_dir/source"
+echo hello > "$demo_dir/source/example.txt"
 
-> 💡 更多案例持续更新中，欢迎提交 PR 分享你的创意！
+bash skills/backup-tool/backup.sh backup "$demo_dir/source" --to "$demo_dir/example.tar.gz" --compress
+bash skills/backup-tool/backup.sh restore "$demo_dir/example.tar.gz" --target "$demo_dir/restored"
+cat "$demo_dir/restored/source/example.txt"
+```
+
+预期最后输出 `hello`。当前备份实现主要是本地 `cp` / `tar`，不要把帮助文字中的增量或云端备份当作已实现能力。
+
+## 模拟新闻简报
+
+```bash
+bash skills/news-digest/news-digest.sh --category tech
+```
+
+输出来自脚本内的固定数组，用于演示简报布局。`NEWS_API_KEY` 尚未用于抓取；若需要真实新闻，需要替换 `fetch_news` 的实现。
+
+通知接口仅在显式传入 `--dingtalk` 或 `--telegram` 时调用，需要自己的环境变量配置。示例命令不发送通知。
+
+[返回 README](README.md)
