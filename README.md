@@ -36,7 +36,7 @@ fi
 | 定时提醒 | [reminder.sh](skills/reminder/reminder.sh) | 直接运行或接 cron；未设 Webhook 时打印到终端 |
 | 本地备份 | [backup.sh](skills/backup-tool/backup.sh) | 本地复制或 tar.gz 压缩、恢复、列出备份；增量与排除参数尚未实现 |
 | 新闻简报 | [news-digest.sh](skills/news-digest/news-digest.sh) | **固定模拟数据**，演示排版和通知流程，未接入真实新闻 API |
-| 会议安排 | [meeting.sh](skills/meeting-scheduler/meeting.sh) | 依赖 `jq` 的实验草稿；通知为终端占位，重复调度尚未实现 |
+| 会议安排 | [meeting.sh](skills/meeting-scheduler/meeting.sh) | 依赖 `jq` 的实验草稿；删除流程可能破坏存储结构，仅供阅读，暂不用于真实日程 |
 | AI 写作 / SEO / 天气等 | [skills](skills) | 部分目录仅有说明文档，需自行补实现 |
 
 ## 两个简单用法
